@@ -1,0 +1,24 @@
+---
+swagger: "2.0"
+info:
+  description: This is a simple Flask example.
+  version: "0.1.0"
+  title: LLaPP
+  contact:
+    email: "lucy.derlin@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:5000" # TODO
+basePath: /api
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+
+
+path:
+  /get:
+    summary: Returns hello.

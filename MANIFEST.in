@@ -1,0 +1,2 @@
+recursive-include src/wextract_microservice/templates *
+recursive-include src/wextract_microservice/static *

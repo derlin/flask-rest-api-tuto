@@ -1,0 +1,5 @@
+{% for endpoint, name in [('showcase.index', 'Showcase')] %}
+    <li class="navbar-item {%- if request.path == url_for(endpoint) %} active{% endif %}">
+        <a class="nav-link" href="{{ url_for(endpoint) }}">{{ name if name else endpoint | capitalize }}</a>
+    </li>
+{% endfor %}
