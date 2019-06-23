@@ -46,6 +46,14 @@ def create_app(k=None):
     def not_found(error):
         return make_response(jsonify(message='Not found'), 404)
 
+    # --- JINJA (used in template wtf.html, only used in showcase)
+
+    def is_hidden_field(field):
+        from wtforms import HiddenField
+        return isinstance(field, HiddenField)
+
+    app.jinja_env.globals['bootstrap_is_hidden_field'] = is_hidden_field
+
     # --- LITTLE ROUTES
 
     @app.route('/specification')

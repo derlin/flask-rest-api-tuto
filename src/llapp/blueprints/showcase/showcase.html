@@ -1,9 +1,44 @@
 {% extends 'layout.html' %}
 
+{% block header_include %}
+    <style type="text/css">
+        .arrow {
+            background: #efefef;
+            font-size: .8em;
+        }
+
+        code {
+            color: #444444;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
+
     <div class="card">
+        <div class="card-header bg-primary text-white">Query</div>
         <div class="card-body">
-            Hello world !
+            {% from 'wtf.html' import quick_form %}
+            {{ quick_form(form, method='GET', button_map=dict(submit='primary')) }}
         </div>
     </div>
+
+    {% if response is defined %}
+        <div class="card mt-3">
+            <div class="card-header bg-primary text-white">Response</div>
+            <div class="card-body">
+                {{ response }}
+                <hr>
+                <p>Test it directly <br>
+                    <span class="arrow">↗</span>
+                    <a href="{{ endpoint }}" target="_blank"><code>{{ endpoint }}</code></a>
+                </p>
+                <hr>
+                <p>
+                    Test in the terminal <br>
+                    <code>curl -H Content-Type:application/json "{{ endpoint }}"</code>
+                </p>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

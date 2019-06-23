@@ -18,7 +18,7 @@ class Form(FlaskForm):
 
 class HelloParams(Form):
     name = wtforms.StringField(
-        default='world', validators=[wtforms.validators.Length(max=10)])
+        default='world', validators=[wtforms.validators.Length(max=50)])
     repeat = wtforms.IntegerField(default=1, validators=[wtforms.validators.NumberRange(min=1, max=1000)])
     capitalize = wtforms.BooleanField(default=False)
 
