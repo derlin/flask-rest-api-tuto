@@ -23,6 +23,7 @@ setuptools.setup(
     # install all packages found under src/
     package_dir={'': 'src'},
     packages=setuptools.find_packages('src'),
+    package_data={'': ['*.html']},  # automatically include templates inside blueprints
 
     # include other files such as html, css, etc
     include_package_data=True,  # read from MANIFEST.in
@@ -40,7 +41,10 @@ setuptools.setup(
 
     # regular dependencies
     install_requires=[
-        'Flask',
+        'flask-wtf',
         'flask-restful',
+        # put it in the end to avoid The 'Flask' distribution was not found and is required by error...
+        # see https://github.com/lingthio/Flask-User/issues/254
+        'Flask',
     ],
 )

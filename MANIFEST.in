@@ -1,2 +1,2 @@
-recursive-include src/wextract_microservice/templates *
-recursive-include src/wextract_microservice/static *
+recursive-include src/llapp/templates *
+recursive-include src/llapp/static *

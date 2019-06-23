@@ -8,6 +8,7 @@ from flask.cli import FlaskGroup
 
 # WARNING: ensure you use full imports here
 from llapp.blueprints.api import bp_api
+from llapp.blueprints.flrapi import bp_flrapi
 from llapp.blueprints.showcase import bp_showcase
 
 
@@ -25,24 +26,25 @@ def create_app(k=None):
     app.url_map.strict_slashes = False
 
     # required for forms (if wtforms is used)
-    # app.config.update(dict(
-    #     SECRET_KEY="powerful secretkey",
-    #     WTF_CSRF_SECRET_KEY="a csrf secret key"
-    # ))
+    app.config.update(dict(
+        SECRET_KEY="powerful secretkey",
+        WTF_CSRF_SECRET_KEY="a csrf secret key"
+    ))
 
     app.register_blueprint(bp_showcase, url_prefix='/showcase')
     app.register_blueprint(bp_api, url_prefix='/api')
+    app.register_blueprint(bp_flrapi, url_prefix='/flrapi')
 
     # --- ERROR HANDLING (json)
 
     @app.errorhandler(Exception)
     def any(error):
         error_code = 400 if isinstance(error, HTTPError) else 500
-        return make_response(jsonify(error=str(error)), error_code)
+        return make_response(jsonify(message=str(error)), error_code)
 
     @app.errorhandler(404)
     def not_found(error):
-        return make_response(jsonify(error='Not found'), 404)
+        return make_response(jsonify(message='Not found'), 404)
 
     # --- LITTLE ROUTES
 

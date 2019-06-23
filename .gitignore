@@ -1,22 +1,25 @@
-.vscode
-.idea
-*.iml
-
+# python builds
 __pycache__
 *.pyc
 build
 _build
 
-
+# setup.py outputs
 dist
 *.egg-info
-*-test.py
 *.log
 logs
 
+# pytest outputs
 .eggs
 .pytest-cache
 
+# common ide metadata
+.vscode
+.idea
+*.iml
+
+# common virtualenv names
 venv
 virtualenv
 
