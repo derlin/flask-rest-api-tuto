@@ -1,0 +1,114 @@
+---
+openapi: "3.0.0"
+info:
+  description: This is a simple Flask example.
+  version: "0.1.0"
+  title: LLaPP
+  contact:
+    email: "lucy.derlin@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+servers:
+  - url: "http://localhost:5000/api" # TODO
+
+
+paths:
+  /:
+    get:
+      summary: Says hello.
+      parameters:
+      - name: parameters
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Parameters'
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        400:
+          $ref: '#/components/responses/InvalidInputError'
+        default:
+          $ref: '#/components/responses/UnknownError'
+
+    post:
+      summary: Says hello.
+      requestBody:
+        description: additional options
+        required: false
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parameters'
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        400:
+          $ref: '#/components/responses/InvalidInputError'
+        default:
+          $ref: '#/components/responses/UnknownError'
+
+
+components:
+  responses:
+        Success:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+
+        InvalidInputError:
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        UnknownError:
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  schemas:
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: object
+          description: names of the fields posing problem along with a description of the error
+      required:
+      - message
+
+    Response:
+      type: object
+      properties:
+        args:
+          type: object
+          description: list of the arguments used to process the request
+        response:
+          type: string
+          description: "the greeting"
+      required:
+      - args
+      - response
+
+    Parameters:
+      type: object
+      properties:
+        name:
+          description: person/thing to greet
+          type: string
+          default: world
+          example: lola
+        repeat:
+          description: number of greetings
+          type: integer
+          minimum: 1
+          default: 1
+        capitalize:
+          description: whether to capitalize words or not.
+          type: boolean
+          default: false
+      example: '{"name": "lola", "repeat": 2, "capitalize": true}'

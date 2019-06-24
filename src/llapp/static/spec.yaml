@@ -1,5 +1,6 @@
 ---
 swagger: "2.0"
+
 info:
   description: This is a simple Flask example.
   version: "0.1.0"
@@ -9,6 +10,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+
 host: "localhost:5000" # TODO
 basePath: /api
 schemes:
@@ -18,7 +20,100 @@ consumes:
 produces:
 - "application/json"
 
+paths:
 
-path:
-  /get:
-    summary: Returns hello.
+  /:
+    get:
+      summary: Says hello.
+      parameters:
+      - name: name
+        in: query
+        description: person/thing to greet
+        type: string
+        default: world
+      - name: repeat
+        in: query
+        description: number of greetings
+        type: integer
+        default: 1
+        minimum: 1
+      - name: capitalize
+        in: query
+        description: whether to capitalize words or not.
+        type: boolean
+        default: false
+      responses:
+        200:
+          $ref: '#/responses/Success'
+        400:
+          $ref: '#/responses/InvalidInputError'
+        default:
+          $ref: '#/responses/UnknownError'
+
+    post:
+      summary: Says hello.
+      parameters:
+      - name: options
+        in: body
+        schema:
+          type: object
+          properties:
+            name:
+              description: person/thing to greet
+              type: string
+              default: world
+            repeat:
+              description: number of greetings
+              type: integer
+              default: 1
+              minimum: 1
+            capitalize:
+              description: whether to capitalize words or not.
+              type: boolean
+              default: false
+      responses:
+        200:
+          $ref: '#/responses/Success'
+        400:
+          $ref: '#/responses/InvalidInputError'
+        default:
+          $ref: '#/responses/UnknownError'
+
+
+responses:
+  Success:
+    description: Success
+    schema:
+      $ref: '#/definitions/Response'
+
+  InvalidInputError:
+    description: Invalid input
+    schema:
+      $ref: '#/definitions/Error'
+  UnknownError:
+    description: Unknown error
+    schema:
+      $ref: '#/definitions/Error'
+
+definitions:
+  Response:
+    type: object
+    properties:
+      args:
+        type: object
+        description: list of the arguments used to process the request
+      response:
+        type: string
+        description: "the greeting"
+    required:
+    - args
+    - response
+
+  Error:
+    type: object
+    properties:
+      message:
+        type: object
+        description: names of the fields posing problem along with a description of the error
+    required:
+    - message
