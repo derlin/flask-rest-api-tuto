@@ -43,6 +43,7 @@ setuptools.setup(
     install_requires=[
         'flask-wtf',
         'flask-restful',
+        'flask-cors',
         # put it in the end to avoid The 'Flask' distribution was not found and is required by error...
         # see https://github.com/lingthio/Flask-User/issues/254
         'Flask',

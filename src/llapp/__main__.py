@@ -5,6 +5,7 @@ from urllib.error import HTTPError
 import click
 from flask import Flask, make_response, jsonify
 from flask.cli import FlaskGroup
+from flask_cors import CORS
 
 # WARNING: ensure you use full imports here
 from llapp.blueprints.api import bp_api
@@ -18,6 +19,7 @@ def create_app(k=None):
     print(f'arguments: k={k}')
 
     app = Flask(__name__)
+    CORS(app)
 
     if app.config['DEBUG']: app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.config['TRAP_HTTP_EXCEPTIONS'] = True
@@ -58,15 +60,12 @@ def create_app(k=None):
 
     @app.route('/specification')
     def serve_specs():
-        # to make it downloadable, use:
+        # the easiest way is:
         # from flask import redirect, url_for
         # redirect(url_for('static'), filename='/spec.yaml')
-
-        # but I want the file to be displayed in the browser (not as attachment)
-        # so I use this:
-        from flask import current_app, Response
-        with current_app.open_resource('static/spec.yaml') as f:
-            return Response(f.read(), mimetype='text/yaml')
+        # but I want the file to be displayed in the browser (not as attachment), so I use this:
+        from flask import send_file
+        return send_file("static/spec.yaml", as_attachment=False, mimetype="text/yaml")
 
     @app.route('/')
     def redirecto_showcase():
