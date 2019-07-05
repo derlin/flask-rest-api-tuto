@@ -42,6 +42,5 @@ docker run --rm -d --name llapp -p 80:80 llapp
 Using gunicorn:
 ```bash
 pip install gunicorn
-gunicorn "llapp.__main__:create_app()"
-
+gunicorn "llapp:create_app()"
 ```

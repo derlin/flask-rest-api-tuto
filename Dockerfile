@@ -27,4 +27,4 @@ ENV NUM_WORKERS=2
 EXPOSE $PORT
 
 # Run the app. CMD is required to run on Heroku (vs ENTRYPOINT)
-CMD gunicorn -w $NUM_WORKERS --bind=0.0.0.0:$PORT -k gevent 'llapp.__main__:create_app()'
+CMD gunicorn -w $NUM_WORKERS --bind=0.0.0.0:$PORT -k gevent 'llapp:create_app()'
