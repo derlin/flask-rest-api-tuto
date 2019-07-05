@@ -18,8 +18,8 @@
     <div class="card">
         <div class="card-header bg-primary text-white">Query</div>
         <div class="card-body">
-            {% from 'wtf.html' import quick_form %}
-            {{ quick_form(form, method='GET', button_map=dict(submit='primary')) }}
+            {% from 'wtf.html' import render_form %}
+            {{ render_form(form, method='GET', button_map=dict(submit='primary')) }}
         </div>
     </div>
 

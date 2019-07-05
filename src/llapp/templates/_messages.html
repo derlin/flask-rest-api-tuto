@@ -1,29 +1,30 @@
+{% macro render_alert(category='info') -%}
+    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ caller() }}
+    </div>
+{%- endmacro %}
+
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
+            {% call render_alert(category) %}
                 {{ message }}
-            </div>
+            {% endcall %}
         {% endfor %}
     {% endif %}
 {% endwith %}
 
 {% if error %}
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                aria-hidden="true">&times;</span>
-        </button>
+    {% call render_alert('danger') %}
         <strong>Erreur </strong> {{ error }}
-    </div>
+    {% endcall %}
 {% endif %}
 
 {% if msg %}
-    <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                aria-hidden="true">&times;</span>
-        </button>
+    {% call render_alert('success') %}
         <strong>Succès </strong> {{ msg }}
-    </div>
+    {% endcall %}
 {% endif %}
