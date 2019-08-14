@@ -1,10 +1,9 @@
-FROM zironycho/jpype3
+FROM python:3.6
 
 WORKDIR /app
 
 # build-base is for building from sources (gevent)
 RUN pip install --upgrade pip
-RUN apk add --no-cache build-base
 
 # copy module sources
 COPY src ./src
