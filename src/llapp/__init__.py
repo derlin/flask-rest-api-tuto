@@ -35,6 +35,9 @@ def create_app(k=None):
     app.register_blueprint(bp_flrapi, url_prefix='/flrapi')
 
     # --- ERROR HANDLING (json)
+    # Note: if you have error handler for "custom" exceptions, ensure you set
+    #    app.config['PROPAGATE_EXCEPTIONS'] = True
+    # so custom exceptions are not re-raised in production...
 
     @app.errorhandler(Exception)
     def any(error):
